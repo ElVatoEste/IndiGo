@@ -54,8 +54,16 @@ export default function CompleteProfileForm() {
             })
 
             router.push("/dashboard")
-        } catch (error: any) {
-            setError("Error al completar el perfil. Intenta nuevamente")
+        } catch (error: unknown) {
+            if (
+                typeof error === "object" &&
+                error !== null &&
+                "message" in error
+            ) {
+                setError((error as { message: string }).message);
+            } else {
+                setError("Error al completar el perfil. Intenta nuevamente");
+            }
         } finally {
             setLoading(false)
         }

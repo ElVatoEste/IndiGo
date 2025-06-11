@@ -25,8 +25,12 @@ export default function LoginForm() {
         try {
             await login(email, password)
             router.push("/dashboard")
-        } catch (error: any) {
-            setError(getErrorMessage(error.code))
+        } catch (error: unknown) {
+            if (typeof error === "object" && error !== null && "code" in error) {
+                setError(getErrorMessage((error as { code: string }).code));
+            } else {
+                setError("Ha ocurrido un error inesperado.");
+            }
         } finally {
             setLoading(false)
         }
@@ -44,8 +48,12 @@ export default function LoginForm() {
             } else {
                 router.push("/dashboard")
             }
-        } catch (error: any) {
-            setError(getErrorMessage(error.code))
+        } catch (error: unknown) {
+            if (typeof error === "object" && error !== null && "code" in error) {
+                setError(getErrorMessage((error as { code: string }).code));
+            } else {
+                setError("Ha ocurrido un error inesperado.");
+            }
         } finally {
             setLoading(false)
         }
