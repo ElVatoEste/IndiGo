@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,12 +28,12 @@ export default function Navbar() {
                 <div className="flex justify-between items-center h-14 sm:h-16">
                     {/* Logo */}
                     <div className="flex items-center">
-                        <div className="flex items-center space-x-2">
-                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-indigo-secondary rounded-lg flex items-center justify-center">
-                                <span className="text-indigo-text font-bold text-xs sm:text-sm">I</span>
+                        <Link href="/" className="flex items-center">
+                            <div className="flex items-center space-x-2">
+                                <Image src="/isotipo.png" alt="Isotipo IndiGO" width={32} height={32} />
+                                <span className="text-indigo-text font-bold text-lg sm:text-xl">IndiGO</span>
                             </div>
-                            <span className="text-indigo-text font-bold text-lg sm:text-xl">IndiGO</span>
-                        </div>
+                        </Link>
                     </div>
 
                     {/* Desktop Navigation */}

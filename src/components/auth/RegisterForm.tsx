@@ -1,14 +1,16 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState} from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
-import type { UserType } from "@/types/user"
-import { Eye, EyeOff, User, Mail, Phone, MapPin, Calendar, Users } from "lucide-react"
+import type { UserType } from "@/types/BaseUserProfile"
+import { Eye, EyeOff, User, Mail, Phone, MapPin, Calendar, Users, Crown } from 'lucide-react'
 
 export default function RegisterForm() {
+    const searchParams = useSearchParams()
+    const selectedPlan = searchParams.get("plan") // "premium" si viene de pricing
+
     const [formData, setFormData] = useState({
         displayName: "",
         cedula: "",
@@ -76,13 +78,14 @@ export default function RegisterForm() {
                 userType: formData.userType as UserType,
             })
 
-            router.push("/dashboard")
-        } catch (error: unknown) {
-            if (typeof error === "object" && error !== null && "code" in error) {
-                setError(getErrorMessage((error as { code: string }).code));
+            // Si seleccionó plan premium, redirigir a pagos
+            if (selectedPlan === "premium") {
+                router.push("/payment?plan=premium")
             } else {
-                setError("Ha ocurrido un error inesperado.");
+                router.push("/dashboard")
             }
+        } catch (error: any) {
+            setError(getErrorMessage(error.code))
         } finally {
             setLoading(false)
         }
@@ -111,8 +114,31 @@ export default function RegisterForm() {
                     <span className="text-indigo-primary font-bold text-2xl">IndiGO</span>
                 </div>
                 <h2 className="text-2xl font-bold text-indigo-primary">Crear Cuenta</h2>
-                <p className="text-gray-600 mt-2">Únete a la comunidad IndiGO Nicaragua</p>
+                <p className="text-gray-600 mt-2">
+                    {selectedPlan === "premium" ? (
+                        <span className="flex items-center justify-center gap-2">
+              <Crown className="h-5 w-5 text-yellow-500" />
+              Registro para Plan Premium
+            </span>
+                    ) : (
+                        "Únete a la comunidad IndiGO Nicaragua"
+                    )}
+                </p>
             </div>
+
+            {selectedPlan === "premium" && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <div className="flex items-center">
+                        <Crown className="h-5 w-5 text-yellow-500 mr-2" />
+                        <div>
+                            <h3 className="font-medium text-yellow-800">Plan Premium Seleccionado</h3>
+                            <p className="text-sm text-yellow-700">
+                                Después del registro serás redirigido al pago para activar tu plan premium por C$720/mes
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-6">{error}</div>}
 

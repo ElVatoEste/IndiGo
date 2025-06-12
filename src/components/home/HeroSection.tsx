@@ -9,10 +9,10 @@ export default function HeroSection() {
                     {/* Content */}
                     <div className="text-center lg:text-left order-2 lg:order-1">
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-indigo-text leading-tight">
-                            Vive tu <span className="text-indigo-secondary">independencia</span> en Nicaragua
+                            Vive tu <span className="text-indigo-secondary">independencia</span> en Managua
                         </h1>
                         <p className="mt-4 sm:mt-6 text-base sm:text-lg lg:text-xl text-indigo-text/80 max-w-2xl mx-auto lg:mx-0">
-                            IndiGO te ayuda a gestionar tu vida independiente en Managua, León, Granada y todo Nicaragua.
+                            IndiGO te ayuda a gestionar tu vida independiente.
                             Servicios de limpieza, asesorías, finanzas personales y mucho más en una sola plataforma.
                         </p>
                         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
@@ -42,7 +42,7 @@ export default function HeroSection() {
                         <div className="relative z-10 max-w-md mx-auto lg:max-w-none">
                             <Image
                                 src="/placeholder.svg?height=600&width=500"
-                                alt="IndiGO App Preview - Nicaragua"
+                                alt="IndiGO - Nicaragua"
                                 width={500}
                                 height={600}
                                 className="w-full h-auto rounded-2xl shadow-2xl"

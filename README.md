@@ -21,14 +21,6 @@ Una solución todo-en-uno para estudiantes, roomies y jóvenes profesionales que
 - [ ] Asesorías virtuales (finanzas, cocina, trámites)
     - [ ] Posibilidad de videollamadas o módulos interactivos
 
-### 📚 Contenido Educativo Práctico
-- [ ] Módulos interactivos sobre:
-    - [ ] Finanzas personales
-    - [ ] Cocina básica
-    - [ ] Trámites administrativos
-- [ ] Etiquetado visual por categorías (íconos y colores)
-- [ ] Contenido gratuito y premium (modelo freemium)
-
 ### 🌟 Reseñas y Calificaciones
 - [ ] Sistema de evaluación para servicios y asesores
 - [ ] Comentarios públicos visibles para otros usuarios
@@ -46,6 +38,7 @@ Una solución todo-en-uno para estudiantes, roomies y jóvenes profesionales que
 - [ ] Pago por demanda para servicios únicos
 - [ ] Métodos de pago integrados:
     - [ ] Transferencias
+    - [ ] Código QR
     - [ ] Código QR
     - [ ] Stripe
     - [ ] PayPal

@@ -1,4 +1,8 @@
-import { Check, Star } from "lucide-react"
+"use client"
+
+import { Check, Star } from 'lucide-react'
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/AuthContext"
 
 interface PricingPlan {
     name: string
@@ -9,6 +13,7 @@ interface PricingPlan {
     isPopular?: boolean
     buttonText: string
     buttonVariant: "default" | "outline"
+    planType: "gratuito" | "premium" | "demanda"
 }
 
 const plans: PricingPlan[] = [
@@ -26,46 +31,85 @@ const plans: PricingPlan[] = [
         ],
         buttonText: "Empezar gratis",
         buttonVariant: "outline",
+        planType: "gratuito",
     },
     {
         name: "Premium",
-        price: "C$350",
+        price: "C$720",
         period: "/mes",
         description: "La solución completa para jóvenes nicaragüenses",
         features: [
             "Todo del plan gratuito",
-            "Servicios de limpieza con descuento",
             "Asesorías ilimitadas con expertos locales",
             "Gestión de trámites gubernamentales",
             "Recetas premium y listas de mercado",
             "Análisis financiero en córdobas",
             "Soporte prioritario 24/7",
+            "Descuentos en servicios de limpieza",
+            "Historial de pagos y facturación",
         ],
         isPopular: true,
         buttonText: "Suscribirse ahora",
         buttonVariant: "default",
+        planType: "premium",
     },
     {
         name: "Por Demanda",
-        price: "C$150-600",
+        price: "C$250 - C$1000",
         period: "/servicio",
-        description: "Paga solo por lo que necesitas",
+        description: "Paga solo por los servicios que necesites",
         features: [
-            "Sin suscripción mensual",
-            "Servicios individuales",
-            "Precios en córdobas",
-            "Flexibilidad total",
-            "Ideal para uso ocasional",
+            "Acceso a servicios de limpieza sin suscripción",
+            "Flexibilidad de pago (efectivo o en línea)",
+            "Soporte básico por WhatsApp",
         ],
         buttonText: "Ver servicios",
         buttonVariant: "outline",
+        planType: "demanda",
     },
 ]
 
 export default function PricingPlans() {
+    const router = useRouter()
+    const { user, loading } = useAuth()
+
+    const handlePlanAction = (planType: "gratuito" | "premium" | "demanda") => {
+        if (loading) return
+
+        switch (planType) {
+            case "gratuito":
+                // Si no está logueado, redirigir a registro
+                if (!user) {
+                    router.push("/register")
+                } else {
+                    // Si ya está logueado, redirigir al dashboard
+                    router.push("/dashboard")
+                }
+                break
+
+            case "premium":
+                // Si no está logueado, redirigir a registro con parámetro de plan premium
+                if (!user) {
+                    router.push("/register?plan=premium")
+                } else {
+                    // Si ya está logueado, redirigir a la pasarela de pagos
+                    router.push("/payment?plan=premium")
+                }
+                break
+
+            case "demanda":
+                // Redirigir a la página de servicios
+                router.push("/servicios")
+                break
+
+            default:
+                break
+        }
+    }
+
     return (
         <section id="precios" className="py-16 sm:py-20 bg-indigo-text">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-10">
                 <div className="text-center mb-12 sm:mb-16">
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-indigo-primary mb-3 sm:mb-4">
                         Planes accesibles para Nicaragua
@@ -112,13 +156,15 @@ export default function PricingPlans() {
                             </ul>
 
                             <button
-                                className={`w-full py-2.5 sm:py-3 px-4 rounded-md transition-colors duration-200 text-sm sm:text-base font-medium ${
+                                onClick={() => handlePlanAction(plan.planType)}
+                                disabled={loading}
+                                className={`w-full py-2.5 sm:py-3 px-4 rounded-md transition-colors duration-200 text-sm sm:text-base font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
                                     plan.buttonVariant === "default"
                                         ? "bg-indigo-secondary hover:bg-indigo-secondary/90 text-white"
                                         : "border border-indigo-secondary text-indigo-secondary hover:bg-indigo-secondary hover:text-white"
                                 }`}
                             >
-                                {plan.buttonText}
+                                {loading ? "Cargando..." : plan.buttonText}
                             </button>
                         </div>
                     ))}

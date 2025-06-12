@@ -1,8 +1,10 @@
 import type { Timestamp } from "firebase/firestore"
+import {EstudianteProfile} from "@/types/EstudianteProfile";
+import {ProfesionalProfile} from "@/types/ProfesionalProfile";
 
 export type UserType = "estudiante" | "profesional"
 
-export interface UserProfile {
+export interface BaseUserProfile {
     uid: string
     email: string
     displayName: string
@@ -17,9 +19,4 @@ export interface UserProfile {
     updatedAt: Timestamp
 }
 
-export interface AuthUser {
-    uid: string
-    email: string | null
-    displayName: string | null
-    profile?: UserProfile
-}
+export type UserProfile = EstudianteProfile | ProfesionalProfile
