@@ -269,10 +269,10 @@ export default function ServiciosPage() {
                     <div className="text-center">
                         <h3 className="font-bold text-indigo-primary mb-2">Métodos de Pago</h3>
                         <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
-              <span className="flex items-center">
-                <CreditCard className="h-4 w-4 mr-1" />
-                Pago en línea (Premium con descuento)
-              </span>
+                          <span className="flex items-center">
+                            <CreditCard className="h-4 w-4 mr-1" />
+                            Pago en línea (Premium con descuento)
+                          </span>
                             <span className="flex items-center">💵 Pago en efectivo al profesional</span>
                         </div>
                     </div>

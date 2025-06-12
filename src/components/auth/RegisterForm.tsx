@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import type { UserType } from "@/types/BaseUserProfile"
 import { Eye, EyeOff, User, Mail, Phone, MapPin, Calendar, Users, Crown } from 'lucide-react'
+import {FirebaseError} from "@firebase/app";
 
 export default function RegisterForm() {
     const searchParams = useSearchParams()
@@ -84,9 +85,14 @@ export default function RegisterForm() {
             } else {
                 router.push("/dashboard")
             }
-        } catch (error: any) {
-            setError(getErrorMessage(error.code))
-        } finally {
+        } catch (error: unknown) {
+            if (error instanceof FirebaseError) {
+                setError(getErrorMessage(error.code))
+            } else {
+                setError("Ocurrió un error inesperado. Intenta de nuevo.")
+            }
+        }
+        finally {
             setLoading(false)
         }
     }
