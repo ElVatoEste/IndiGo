@@ -7,7 +7,7 @@ Una solución todo-en-uno para estudiantes, roomies y jóvenes profesionales que
 ## ✅ Checklist de Desarrollo
 
 ### 👥 Gestión de Usuarios
-- [ ] Registro e inicio de sesión moderno (email, Google, redes sociales)
+- [X] Registro e inicio de sesión moderno (email, Google, redes sociales)
 - [ ] Perfil de usuario (datos personales, tipo de usuario, intereses)
 - [ ] Personalización del contenido según el perfil
 
@@ -46,25 +46,21 @@ Una solución todo-en-uno para estudiantes, roomies y jóvenes profesionales que
 ---
 
 ## 🎯 Marketing y Adquisición de Usuarios
-- [ ] Landing page orientada a conversión (beneficios + CTA)
-- [ ] Sistema de referidos con recompensas
-- [ ] Integración con redes sociales (TikTok, Instagram, Facebook)
-- [ ] Blog con contenido SEO ("cómo independizarme", etc.)
+- [X] Landing page orientada a conversión (beneficios + CTA)
+- [X] Integración con redes sociales (TikTok, Instagram, Facebook)
+- [X] Blog con contenido SEO ("cómo independizarme", etc.)
 - [ ] Formularios de suscripción para email marketing
 
 ---
 
 ## 📲 Diseño y Tecnología
-- [ ] Enfoque mobile-first
-- [ ] Estética juvenil, moderna, con color índigo predominante
+- [X] Estética juvenil, moderna, con color índigo predominante
 - [ ] Íconos representativos por sección
-- [ ] Notificaciones motivacionales estilo "¡Lo estás haciendo bien!"
 
 ---
 
 ## 📍 Acceso y Distribución
-- [ ] Versión web + descarga directa de APK desde sitio oficial
-- [ ] Publicación en Google Play y App Store
+- [X] Versión web desde sitio oficial
 - [ ] Códigos QR descargables para impresión
 - [ ] Alianzas con universidades para promoción física y digital
 
