@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext"
 import type { UserType } from "@/types/BaseUserProfile"
 import { Eye, EyeOff, User, Mail, Phone, MapPin, Calendar, Users, Crown } from 'lucide-react'
 import {FirebaseError} from "@firebase/app";
+import Image from "next/image";
 
 export default function RegisterForm() {
     const searchParams = useSearchParams()
@@ -114,9 +115,7 @@ export default function RegisterForm() {
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
                 <div className="flex items-center justify-center space-x-2 mb-4">
-                    <div className="w-10 h-10 bg-indigo-secondary rounded-lg flex items-center justify-center">
-                        <span className="text-indigo-text font-bold">I</span>
-                    </div>
+                    <Image src="/isotipo.png" alt="Isotipo IndiGO" width={32} height={32} />
                     <span className="text-indigo-primary font-bold text-2xl">IndiGO</span>
                 </div>
                 <h2 className="text-2xl font-bold text-indigo-primary">Crear Cuenta</h2>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Clock, Star, MapPin, Search, Video, Users, Sparkles, CreditCard, Percent } from "lucide-react"
 import {useRouter} from "next/navigation";
 import {services} from "@/data/Service";
+import Image from "next/image";
 
 export default function ServiciosPage() {
     const [selectedCategory, setSelectedCategory] = useState<string>("all")
@@ -44,13 +45,33 @@ export default function ServiciosPage() {
         return ["limpieza-profunda", "mantenimiento", "lavanderia"].includes(category)
     }
 
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <div className="bg-indigo-primary text-white py-12">
+            <div className="bg-indigo-primary text-white py-12 relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center">
-                        <h1 className="text-3xl sm:text-4xl font-bold mb-4">Servicios IndiGO</h1>
+                    {/* Back Button - Positioned at top left */}
+                    <div className="absolute top-4 left-4 sm:left-6 lg:left-8">
+                        <button
+                            onClick={() => router.push("/")}
+                            className="inline-flex items-center bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105"
+                        >
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Volver al inicio
+                        </button>
+                    </div>
+
+                    {/* Header Content */}
+                    <div className="text-center pt-8">
+                        <div className="flex items-center justify-center space-x-2 mb-4">
+                            <div className="flex items-center space-x-2">
+                                <Image src="/isotipo.png" alt="Isotipo IndiGO" width={32} height={32} />
+                                <span className="text-indigo-text font-bold text-2xl">IndiGO</span>
+                            </div>
+                        </div>
                         <p className="text-lg text-indigo-text/80 max-w-2xl mx-auto">
                             Asesorías virtuales y servicios de limpieza para tu vida independiente en Nicaragua
                         </p>

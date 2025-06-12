@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import type { UserType } from "@/types/BaseUserProfile"
 import { User, Phone, MapPin, Calendar, Users } from "lucide-react"
+import Image from "next/image";
 
 export default function CompleteProfileForm() {
     const [formData, setFormData] = useState({
@@ -73,9 +74,7 @@ export default function CompleteProfileForm() {
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
             <div className="text-center mb-8">
                 <div className="flex items-center justify-center space-x-2 mb-4">
-                    <div className="w-10 h-10 bg-indigo-secondary rounded-lg flex items-center justify-center">
-                        <span className="text-indigo-text font-bold">I</span>
-                    </div>
+                    w-full
                     <span className="text-indigo-primary font-bold text-2xl">IndiGO</span>
                 </div>
                 <h2 className="text-2xl font-bold text-indigo-primary">Completa tu Perfil</h2>
