@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import type { UserType } from "@/types/BaseUserProfile"
 import { User, Phone, MapPin, Calendar, Users } from "lucide-react"
-import Image from "next/image";
 
 export default function CompleteProfileForm() {
     const [formData, setFormData] = useState({

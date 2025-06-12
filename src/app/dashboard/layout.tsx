@@ -31,7 +31,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         needsProfileCompletion ||
         (user?.profile?.userType === "profesional" && pathname !== "/dashboard/profesional")
     ) {
-        return null // ⛔ No muestra nada durante la redirección
+        return null
     }
 
     const showNavbar =
