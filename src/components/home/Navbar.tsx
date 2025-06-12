@@ -30,8 +30,12 @@ export default function Navbar() {
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center">
                             <div className="flex items-center space-x-2">
-                                <Image src="/isotipo.png" alt="Isotipo IndiGO" width={32} height={32} />
-                                <span className="text-indigo-text font-bold text-lg sm:text-xl">IndiGO</span>
+                                <Image
+                                    src="/logos/logocompletopng.png"
+                                    alt="Isotipo IndiGO"
+                                    width={120}
+                                    height={120}
+                                />
                             </div>
                         </Link>
                     </div>

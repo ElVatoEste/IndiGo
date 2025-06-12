@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import CompleteProfileForm from "@/components/auth/CompleteProfileForm"
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function CompleteProfilePage() {
     const { user, loading, needsProfileCompletion } = useAuth()
@@ -20,11 +21,7 @@ export default function CompleteProfilePage() {
     }, [user, loading, needsProfileCompletion, router])
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-indigo-primary flex items-center justify-center">
-                <div className="text-indigo-text text-xl">Cargando...</div>
-            </div>
-        )
+        return <LoadingScreen />
     }
 
     if (!user || !needsProfileCompletion) {

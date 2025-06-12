@@ -1,18 +1,24 @@
 "use client"
 
-import { type ReactNode, useEffect } from "react"
+import { type ReactNode, useEffect, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
-import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
+import DashboardNavbar from "@/components/dashboard/DashboardNavbar"
+import LoadingScreen from "@/components/LoadingScreen"
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
+    const [isClient, setIsClient] = useState(false)
+
     const pathname = usePathname()
     const router = useRouter()
-
     const { user, loading, needsProfileCompletion } = useAuth()
 
     useEffect(() => {
-        if (loading) return
+        setIsClient(true)
+    }, [])
+
+    useEffect(() => {
+        if (!isClient || loading) return
 
         if (!user) {
             router.push("/login")
@@ -21,26 +27,23 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         } else if (user.profile?.userType === "profesional" && pathname !== "/dashboard/profesional") {
             router.push("/dashboard/profesional")
         } else if (user.profile?.userType === "estudiante" && pathname === "/dashboard/profesional") {
-            router.push("/dashboard") // Redirect professional dashboard if user is student
+            router.push("/dashboard")
         }
-    }, [loading, user, needsProfileCompletion, pathname, router])
+    }, [loading, user, needsProfileCompletion, pathname, router, isClient])
 
     if (
+        !isClient ||
         !user ||
         needsProfileCompletion ||
         (user?.profile?.userType === "profesional" && pathname !== "/dashboard/profesional") ||
         (user?.profile?.userType === "estudiante" && pathname === "/dashboard/profesional")
     ) {
-        return (
-            <div className="min-h-screen bg-indigo-primary flex items-center justify-center">
-                <div className="text-indigo-text text-xl">Cargando...</div>
-            </div>
-        )
+        return <LoadingScreen />
     }
 
     return (
         <div className="min-h-screen flex flex-col">
-            <DashboardNavbar /> {/* Use the new DashboardNavbar */}
+            <DashboardNavbar />
             <main className="flex-1">{children}</main>
         </div>
     )

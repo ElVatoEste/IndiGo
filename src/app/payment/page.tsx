@@ -2,8 +2,10 @@
 
 import { useAuth } from "@/contexts/AuthContext"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Crown, CreditCard, Building, ArrowLeft, Check } from "lucide-react"
+import LoadingScreen from "@/components/LoadingScreen";
+import Image from "next/image";
 
 export default function PaymentPage() {
     const { user, loading, updateUserPlan } = useAuth()
@@ -47,11 +49,7 @@ export default function PaymentPage() {
     }
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-indigo-primary flex items-center justify-center">
-                <div className="text-indigo-text text-xl">Cargando...</div>
-            </div>
-        )
+        return <LoadingScreen />
     }
 
     if (!user) {
@@ -71,10 +69,10 @@ export default function PaymentPage() {
                         Volver
                     </button>
                     <div className="flex items-center justify-center space-x-2 mb-4">
-                        <div className="w-10 h-10 bg-indigo-secondary rounded-lg flex items-center justify-center">
-                            <span className="text-indigo-text font-bold">I</span>
+                        <div className="flex items-center justify-center space-x-2 mb-4">
+                            <Image src="/isotipo.png" alt="Isotipo IndiGO" width={32} height={32} />
+                            <span className="text-indigo-primary font-bold text-2xl">IndiGO</span>
                         </div>
-                        <span className="text-indigo-primary font-bold text-2xl">IndiGO</span>
                     </div>
                     <h1 className="text-3xl font-bold text-gray-900">Activar Plan Premium</h1>
                     <p className="text-gray-600 mt-2">Completa tu suscripción para acceder a todas las funcionalidades</p>

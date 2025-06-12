@@ -233,7 +233,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 const pending = GoogleAuthProvider.credentialFromError(e)
                 const methods = await fetchSignInMethodsForEmail(auth, email)
                 if (methods.includes("password")) {
-                    const pw = window.prompt("Ingresa tu contraseña para vincular cuentas:")
+                    let pw = ""
+                    if (typeof window !== "undefined") {
+                        pw = window.prompt("Ingresa tu contraseña para vincular cuentas:") || ""
+                    }
                     if (!pw) throw new Error("Contraseña requerida")
                     const userCred = await signInWithEmailAndPassword(auth, email, pw)
                     if (pending) await linkWithCredential(userCred.user, pending)
@@ -242,6 +245,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                     return { needsCompletion: !prof }
                 }
             }
+
             throw e
         }
     }

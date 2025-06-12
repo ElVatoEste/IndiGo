@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import BlogPostCard from "@/components/dashboard/blog/BlogPostCard";
+import LoadingScreen from "@/components/LoadingScreen";
 
 interface BlogPost {
     id: string
@@ -83,11 +84,7 @@ export default function BlogPage() {
     }, [user, loading, router])
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-indigo-primary flex items-center justify-center">
-                <div className="text-indigo-text text-xl">Cargando...</div>
-            </div>
-        )
+        return <LoadingScreen />
     }
 
     if (!user) {
