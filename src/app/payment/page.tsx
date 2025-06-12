@@ -8,6 +8,7 @@ import { Crown, CreditCard, Building, ArrowLeft, Check } from "lucide-react"
 export default function PaymentPage() {
     const { user, loading } = useAuth()
     const router = useRouter()
+
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("")
     const [processing, setProcessing] = useState(false)
 

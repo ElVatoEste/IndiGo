@@ -41,7 +41,7 @@ export default function HeroSection() {
                     <div className="relative order-1 lg:order-2">
                         <div className="relative z-10 max-w-md mx-auto lg:max-w-none">
                             <Image
-                                src="/placeholder.svg?height=600&width=500"
+                                src="/home/hero.jpg"
                                 alt="IndiGO - Nicaragua"
                                 width={500}
                                 height={600}
