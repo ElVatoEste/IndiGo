@@ -5,9 +5,9 @@ export interface ProfesionalProfile extends BaseUserProfile {
     userType: "profesional"
     calificacionPromedio: number
     trabajosRealizados: number
-    fechaIngreso: Timestamp
-    zonasPreferidas: string[]
+    fechaIngreso: Date
+    tiposServicio: string[]
     aceptaMaterialesPropios: boolean
     aceptaTransporte: boolean
-    descripcionProfesional?: string
+    descripcionProfesional: string
 }

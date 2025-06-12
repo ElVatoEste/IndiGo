@@ -24,9 +24,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             router.push("/login")
         } else if (needsProfileCompletion) {
             router.push("/complete-profile")
-        } else if (user.profile?.userType === "profesional" && pathname !== "/dashboard/profesional") {
+        } else if (
+            user.profile?.userType === "profesional" &&
+            !pathname.startsWith("/dashboard/profesional")
+        ) {
             router.push("/dashboard/profesional")
-        } else if (user.profile?.userType === "estudiante" && pathname === "/dashboard/profesional") {
+        } else if (
+            user.profile?.userType === "estudiante" &&
+            pathname.startsWith("/dashboard/profesional")
+        ) {
             router.push("/dashboard")
         }
     }, [loading, user, needsProfileCompletion, pathname, router, isClient])
@@ -35,8 +41,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         !isClient ||
         !user ||
         needsProfileCompletion ||
-        (user?.profile?.userType === "profesional" && pathname !== "/dashboard/profesional") ||
-        (user?.profile?.userType === "estudiante" && pathname === "/dashboard/profesional")
+        (user?.profile?.userType === "profesional" && !pathname.startsWith("/dashboard/profesional")) ||
+        (user?.profile?.userType === "estudiante" && pathname.startsWith("/dashboard/profesional"))
     ) {
         return <LoadingScreen />
     }

@@ -74,7 +74,7 @@ export default function DashboardNavbar() {
                             </button>
                             <div className="absolute right-0 w-48 bg-white rounded-md shadow-lg py-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
                                 <a
-                                    href="/dashboard/profile"
+                                    href={user?.profile?.userType === "profesional" ? "/dashboard/profesional/profile" : "/dashboard/profile"}
                                     className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                                 >
                                     <User className="h-4 w-4 mr-2" />
@@ -138,7 +138,7 @@ export default function DashboardNavbar() {
                             </div>
                             <div className="mt-3 px-2 space-y-1">
                                 <a
-                                    href="/dashboard/profile"
+                                    href={user?.profile?.userType === "profesional" ? "/dashboard/profesional/profile" : "/dashboard/profile"}
                                     className="px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 flex items-center"
                                     onClick={() => setIsMenuOpen(false)}
                                 >

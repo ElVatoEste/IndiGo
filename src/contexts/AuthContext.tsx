@@ -133,7 +133,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 calificacionPromedio: 0,
                 trabajosRealizados: 0,
                 fechaIngreso: now,
-                zonasPreferidas: [],
+                tiposServicio: [],
                 aceptaMaterialesPropios: false,
                 aceptaTransporte: false,
                 descripcionProfesional: "",
