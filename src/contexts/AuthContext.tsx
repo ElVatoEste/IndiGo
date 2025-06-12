@@ -19,7 +19,7 @@ import type { UserProfile, UserType } from "@/types/BaseUserProfile"
 import { FirebaseError } from "@firebase/app"
 import type { AuthUser } from "@/types/AuthUser"
 import type { EstudianteProfile } from "@/types/EstudianteProfile"
-import type { ProfesionalProfile } from "@/types/ProfesionalProfile"
+import { ProfesionalProfile } from "@/types/ProfesionalProfile"
 
 interface AuthContextType {
     user: AuthUser | null
@@ -132,7 +132,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 userType: "profesional",
                 calificacionPromedio: 0,
                 trabajosRealizados: 0,
-                fechaIngreso: now,
                 tiposServicio: [],
                 aceptaMaterialesPropios: false,
                 aceptaTransporte: false,

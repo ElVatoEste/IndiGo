@@ -13,7 +13,7 @@ interface SolicitudServicio {
   ubicacion: string
   fecha: string
   estado: "activo" | "pendiente" | "cancelado" | "finalizado"
-  createdAt?: any
+  createdAt?: unknown
   profesionalId?: string
   profesionalNombre?: string
   profesionalCalificacion?: number
