@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Crown, CreditCard, Building, ArrowLeft, Check } from "lucide-react"
 
 export default function PaymentPage() {
-    const { user, loading } = useAuth()
+    const { user, loading, updateUserPlan } = useAuth()
     const router = useRouter()
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("")
@@ -27,10 +27,22 @@ export default function PaymentPage() {
         setProcessing(true)
 
         // Simular procesamiento de pago
-        setTimeout(() => {
+        setTimeout(async () => {
             // Aquí integrarías con tu pasarela de pagos real
-            alert("¡Pago procesado exitosamente! Tu plan premium ha sido activado.")
-            router.push("/dashboard")
+            if (user && user.profile?.userType === "estudiante") {
+                try {
+                    await updateUserPlan(user.uid, "premium")
+                    alert("¡Pago procesado exitosamente! Tu plan premium ha sido activado.")
+                    router.push("/dashboard")
+                } catch (error) {
+                    console.error("Error al actualizar el plan:", error)
+                    alert("Pago procesado, pero hubo un error al actualizar tu plan. Por favor, contacta a soporte.")
+                    setProcessing(false) // Allow retrying or showing error
+                }
+            } else {
+                alert("Pago procesado, pero no se pudo actualizar el plan. Asegúrate de ser un usuario estudiante.")
+                router.push("/dashboard") // Still redirect, but inform user
+            }
         }, 3000)
     }
 
