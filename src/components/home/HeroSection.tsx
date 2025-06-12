@@ -39,13 +39,12 @@ export default function HeroSection() {
 
                     {/* Image */}
                     <div className="relative order-1 lg:order-2">
-                        <div className="relative z-10 max-w-md mx-auto lg:max-w-none">
+                        <div className="relative z-10 max-w-md mx-auto lg:max-w-none aspect-[5/6]">
                             <Image
-                                src="/home/hero.jpg"
+                                src="/home/hero.png"
                                 alt="IndiGO - Nicaragua"
-                                width={500}
-                                height={600}
-                                className="w-full h-auto rounded-2xl shadow-2xl"
+                                fill
+                                className="object-cover rounded-2xl shadow-2xl"
                             />
                         </div>
                         {/* Decorative elements */}

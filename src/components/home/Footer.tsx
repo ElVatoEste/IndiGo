@@ -49,14 +49,6 @@ export default function Footer() {
                                     href="#"
                                     className="text-indigo-text/80 hover:text-indigo-secondary transition-colors text-sm sm:text-base"
                                 >
-                                    Asesorías
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-indigo-text/80 hover:text-indigo-secondary transition-colors text-sm sm:text-base"
-                                >
                                     Finanzas
                                 </a>
                             </li>
@@ -105,22 +97,6 @@ export default function Footer() {
                                     className="text-indigo-text/80 hover:text-indigo-secondary transition-colors text-sm sm:text-base"
                                 >
                                     Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-indigo-text/80 hover:text-indigo-secondary transition-colors text-sm sm:text-base"
-                                >
-                                    Prensa
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="text-indigo-text/80 hover:text-indigo-secondary transition-colors text-sm sm:text-base"
-                                >
-                                    Aliados
                                 </a>
                             </li>
                         </ul>
