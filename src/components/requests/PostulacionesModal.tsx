@@ -1,5 +1,5 @@
 "use client";
-import { useOfertasSolicitud } from "@/hooks/useOfertasSolicitud";
+import { useOfertasConPerfil } from "@/hooks/useOfertasConPerfil";
 import { useState } from "react";
 
 interface PostulacionesModalProps {
@@ -21,7 +21,7 @@ export default function PostulacionesModal({
                                              solicitudId,
                                              onAceptarAction,
                                            }: PostulacionesModalProps) {
-  const { ofertas, loading } = useOfertasSolicitud(solicitudId);
+  const { ofertas, loading } = useOfertasConPerfil(solicitudId);
   const [aceptando, setAceptando] = useState<string | null>(null);
 
   if (!open) return null;
@@ -58,12 +58,12 @@ export default function PostulacionesModal({
                       <div className="flex justify-between items-center">
                         <div>
                           <div className="font-semibold text-indigo-900">
-                            {oferta.nombreProfesional}
+                            {oferta.profesionalNombre}
                           </div>
                           <div className="text-sm text-gray-500">
                             Calificación:{" "}
-                            {oferta.calificacionPromedio !== null
-                                ? oferta.calificacionPromedio.toFixed(1)
+                            {oferta.promedioCalificacion !== null
+                                ? oferta.promedioCalificacion?.toFixed(1)
                                 : "Sin calificación"}
                           </div>
                         </div>
@@ -93,7 +93,7 @@ export default function PostulacionesModal({
                             onAceptarAction(
                                 oferta.id,
                                 oferta.profesionalId,
-                                oferta.nombreProfesional
+                                oferta.profesionalNombre
                             );
                           }}
                           disabled={!!aceptando}

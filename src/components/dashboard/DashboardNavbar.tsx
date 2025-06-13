@@ -16,7 +16,7 @@ export default function DashboardNavbar() {
         { href: "/dashboard", label: "Inicio", icon: Home, roles: ["estudiante"] },
         { href: "/dashboard/profesional", label: "Mi Trabajo", icon: Briefcase, roles: ["profesional"] },
         { href: "/dashboard/profesional/ofertas", label: "Ofertas", icon: Tag  , roles: ["profesional"] },
-        { href: "/dashboard/servicios", label: "Servicios", icon: DollarSign, roles: ["estudiante"] },
+        { href: "/dashboard/servicios/solicitudes", label: "Servicios", icon: DollarSign, roles: ["estudiante"] },
         { href: "/dashboard/blog", label: "Blog", icon: BookOpen, roles: ["estudiante"] },
     ]
 

@@ -124,7 +124,7 @@ export default function SolicitudServicioCard({
                   href={`/dashboard/servicios/solicitudes/${id}`}
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg font-medium transition-colors flex items-center justify-center space-x-2"
               >
-                <span>Ver postulaciones</span>
+                <span>Ver ofertas</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
