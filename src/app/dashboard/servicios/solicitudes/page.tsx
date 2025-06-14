@@ -28,6 +28,7 @@ export default function SolicitudesPage() {
         uid: user.uid,
         displayName: user.displayName || user.email || "Usuario",
         email: user.email || "",
+        telefono: user.profile?.telefono,
       },
       ...data,
     })
@@ -112,6 +113,7 @@ export default function SolicitudesPage() {
                   id={solicitud.id}
                   userDisplayName={solicitud.userDisplayName}
                   userEmail={solicitud.userEmail}
+                  telefono={solicitud.telefono}
                   tiposServicio={solicitud.tiposServicio || []}
                   descripcion={solicitud.descripcion || ""}
                   estado={solicitud.estado}

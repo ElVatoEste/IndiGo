@@ -1,8 +1,17 @@
 "use client"
-
-
+import { useAuth } from "@/contexts/AuthContext"
+import { usePendientesSolicitudes } from "@/hooks/usePendientesSolicitudes"
+import SolicitudPendienteCard from "@/components/requests/SolicitudPendienteCard" // asumiendo que lo creaste
+import { useEffect } from "react"
 
 export default function DashboardPage() {
+    const { user } = useAuth()
+    const { pendientes, loading } = usePendientesSolicitudes(user?.uid || "")
+
+    useEffect(() => {
+        console.log(pendientes) })
+    // Función para refrescar: por ser onSnapshot, refresca solo
+    const refrescar = () => {}
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -11,18 +20,23 @@ export default function DashboardPage() {
                     <div className="bg-white rounded-lg shadow p-6">
                         <h1 className="text-2xl font-bold text-indigo-primary mb-4">Dashboard de Estudiante</h1>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div className="bg-indigo-50 p-6 rounded-lg">
-                                <h3 className="font-semibold text-indigo-primary mb-2">Servicios de Limpieza</h3>
-                                <p className="text-gray-600">Encuentra profesionales de limpieza verificados</p>
-                            </div>
-                            <div className="bg-indigo-50 p-6 rounded-lg">
-                                <h3 className="font-semibold text-indigo-primary mb-2">Asesorías</h3>
-                                <p className="text-gray-600">Recibe consejos de expertos</p>
-                            </div>
-                            <div className="bg-indigo-50 p-6 rounded-lg">
-                                <h3 className="font-semibold text-indigo-primary mb-2">Finanzas</h3>
-                                <p className="text-gray-600">Controla tus gastos en córdobas</p>
-                            </div>
+                            {/* ... tus cards fijas ... */}
+                        </div>
+                        <div className="mt-8">
+                            <h2 className="text-xl font-semibold mb-4 text-indigo-primary">Servicios pendientes</h2>
+                            {loading ? (
+                                <div className="text-gray-600">Cargando...</div>
+                            ) : pendientes.length === 0 ? (
+                                <div className="text-gray-400">No tienes servicios pendientes.</div>
+                            ) : (
+                                pendientes.map((sol) => (
+                                    <SolicitudPendienteCard
+                                        key={sol.id}
+                                        solicitud={sol}
+                                        onActualizar={refrescar}
+                                    />
+                                ))
+                            )}
                         </div>
                     </div>
                 </div>

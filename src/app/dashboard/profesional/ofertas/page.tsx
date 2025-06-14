@@ -115,7 +115,6 @@ export default function OfertasPage() {
                     .map((sol) => (
                         <SolicitudServicioCard
                             key={sol.id}
-                            id={sol.id}
                             userDisplayName={sol.userDisplayName}
                             userEmail={sol.userEmail}
                             tiposServicio={sol.tiposServicio}

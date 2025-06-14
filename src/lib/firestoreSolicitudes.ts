@@ -8,7 +8,7 @@ export async function crearSolicitudServicio({
   ubicacion,
   fecha,
 }: {
-  user: { uid: string, displayName: string, email: string }
+  user: { uid: string, displayName: string, email: string, telefono?: string }
   tiposServicio: string[]
   descripcion: string
   ubicacion: string
@@ -18,6 +18,7 @@ export async function crearSolicitudServicio({
     userId: user.uid,
     userDisplayName: user.displayName,
     userEmail: user.email,
+    telefono: user.telefono,
     tiposServicio,
     descripcion,
     ubicacion,

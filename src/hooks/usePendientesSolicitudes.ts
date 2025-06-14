@@ -1,6 +1,5 @@
-"use client"
 import { useEffect, useState } from "react"
-import { collection, query, where, onSnapshot, orderBy, Timestamp } from "firebase/firestore"
+import { collection, query, where, onSnapshot, Timestamp } from "firebase/firestore"
 import { db } from "@/firebase/clientApp"
 
 export interface SolicitudServicio {
@@ -13,38 +12,30 @@ export interface SolicitudServicio {
   descripcion: string
   ubicacion: string
   fecha: string
-  estado: string
+  estado: "activo" | "pendiente" | "cancelado" | "finalizado"
   createdAt?: Timestamp
   profesionalId?: string
   profesionalNombre?: string
   profesionalCalificacion?: number
 }
 
-export function useSolicitudesActivas(userId: string | undefined) {
-  const [solicitudes, setSolicitudes] = useState<SolicitudServicio[]>([])
+export function usePendientesSolicitudes(userId: string) {
+  const [pendientes, setPendientes] = useState<SolicitudServicio[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!userId) return
-
     const q = query(
       collection(db, "service_requests"),
       where("userId", "==", userId),
-      where("estado", "==", "activo"),
-      orderBy("createdAt", "desc")
+      where("estado", "==", "pendiente")
     )
-
     const unsub = onSnapshot(q, (snap) => {
-      const data = snap.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as SolicitudServicio[]
-      setSolicitudes(data)
+      setPendientes(snap.docs.map(d => ({ id: d.id, ...d.data() })) as SolicitudServicio[])
       setLoading(false)
     })
-
     return () => unsub()
   }, [userId])
 
-  return { solicitudes, loading }
+  return { pendientes, loading }
 }

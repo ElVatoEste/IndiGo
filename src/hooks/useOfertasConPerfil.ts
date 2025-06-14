@@ -13,6 +13,7 @@ export interface OfertaConPerfil {
   genero?: string
   trabajosRealizados?: number
   promedioCalificacion?: number
+  telefono?: string
 }
 
 export function useOfertasConPerfil(solicitudId: string) {
@@ -41,6 +42,7 @@ export function useOfertasConPerfil(solicitudId: string) {
               genero: d.genero,
               trabajosRealizados: d.trabajosRealizados,
               promedioCalificacion: d.calificacionPromedio,
+              telefono: d.telefono,
             }
           }
         }

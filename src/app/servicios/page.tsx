@@ -144,9 +144,11 @@ export default function ServiciosPage() {
                             className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
                         >
                             <div className="relative">
-                                <img
+                                <Image
                                     src={service.image || "/placeholder.svg"}
                                     alt={service.name}
+                                    width={400}
+                                    height={192}
                                     className="w-full h-48 object-cover"
                                 />
                                 {service.isVirtual && (

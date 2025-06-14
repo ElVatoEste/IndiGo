@@ -44,11 +44,11 @@ export function useOfertasSolicitudes(tiposServicio: string[], user: AuthUser | 
     )
 
     const unsubscribeSolicitudes = onSnapshot(qSolicitudes, (snapshot) => {
-      const data = snapshot.docs
-        .map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as SolicitudServicio[]
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as SolicitudServicio[]
+      
       // Solo filtra por tipos aquí, no por ofertas
       const filtradas = data.filter((solicitud) =>
         solicitud.tiposServicio.some((tipo) => tiposServicio.includes(tipo))
