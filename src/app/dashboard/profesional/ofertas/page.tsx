@@ -62,7 +62,7 @@ export default function OfertasPage() {
   if (needsConfig) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm text-center">
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm text-center mx-4">
             <h2 className="text-xl font-bold mb-4 text-black">
               Perfil incompleto
             </h2>
@@ -84,10 +84,10 @@ export default function OfertasPage() {
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Ofertas de Servicios
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Solicitudes que coinciden con tus servicios ofrecidos
             </p>
           </div>
@@ -98,9 +98,9 @@ export default function OfertasPage() {
                 <p className="ml-3 text-gray-700">Cargando solicitudes...</p>
               </div>
           ) : solicitudes.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-xl shadow-sm">
+              <div className="text-center py-16 bg-white rounded-xl shadow-sm">
                 <div className="text-gray-500 text-6xl mb-4">🔍</div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                <h3 className="text-xl font-medium text-gray-900 mb-3">
                   No hay solicitudes disponibles
                 </h3>
                 <p className="text-gray-700">
@@ -109,7 +109,7 @@ export default function OfertasPage() {
                 </p>
               </div>
           ) : (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-black">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-black">
                 {solicitudes
                     .filter((sol) => !rechazadas.includes(sol.id))
                     .map((sol) => (
@@ -117,6 +117,7 @@ export default function OfertasPage() {
                             key={sol.id}
                             userDisplayName={sol.userDisplayName}
                             userEmail={sol.userEmail}
+                            telefono={user?.profile?.telefono}
                             tiposServicio={sol.tiposServicio}
                             descripcion={sol.descripcion}
                             ubicacion={sol.ubicacion}

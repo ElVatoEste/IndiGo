@@ -3,6 +3,7 @@ import { useState } from "react"
 import { OfertaConPerfil } from "@/hooks/useOfertasConPerfil"
 import { useOfertasConPerfil } from "@/hooks/useOfertasConPerfil"
 import { MapPin, Calendar, User, Mail, Phone } from "lucide-react"
+import { useEliminarOferta } from "@/hooks/useEliminarOferta"
 
 interface SolicitudConOfertasCardProps {
   id: string
@@ -31,6 +32,7 @@ export default function SolicitudConOfertasCard({
 }: SolicitudConOfertasCardProps) {
   const { ofertas, loading } = useOfertasConPerfil(id)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const { eliminar, loadingElimination } = useEliminarOferta()
   
   const nextOferta = () => {
     setCurrentIndex((prev) => (prev + 1) % ofertas.length)
@@ -48,6 +50,15 @@ export default function SolicitudConOfertasCard({
   }
 
   const color = estadoColor[estado] || "text-gray-800 bg-gray-100"
+
+  const handleRechazarOferta = async () => {
+    if (!ofertas[currentIndex]) return
+    await eliminar(id, ofertas[currentIndex].id)
+    // Si era la última oferta, volver al inicio
+    if (currentIndex === ofertas.length - 1) {
+      setCurrentIndex(0)
+    }
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -95,17 +106,29 @@ export default function SolicitudConOfertasCard({
 
             <div>
               <span className="text-sm font-medium text-gray-500 block mb-2">Descripción:</span>
-              <p className="text-gray-700 bg-gray-50 p-4 rounded-lg">{descripcion}</p>
+              <p
+                className="text-gray-700 bg-gray-50 p-4 rounded-lg line-clamp-3 overflow-hidden cursor-pointer"
+                title={descripcion}
+              >
+                {descripcion}
+              </p>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <MapPin className="h-5 w-5" />
-              <span>{ubicacion}</span>
+              <span className="truncate max-w-[150px] cursor-pointer" title={ubicacion}>
+                {ubicacion}
+              </span>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <Calendar className="h-5 w-5" />
-              <span>Fecha solicitada: {new Date(fecha).toLocaleDateString()}</span>
+              <span
+                className="truncate max-w-[150px] cursor-pointer"
+                title={`Fecha solicitada: ${new Date(fecha).toLocaleDateString()}`}
+              >
+                Fecha solicitada: {new Date(fecha).toLocaleDateString()}
+              </span>
             </div>
           </div>
         </div>
@@ -192,9 +215,10 @@ export default function SolicitudConOfertasCard({
                     <div className="flex gap-2">
                       <button
                         className="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 text-sm font-medium transition-colors"
-                        onClick={() => {/* lógica para ocultar de la lista o eliminar del backend */}}
+                        onClick={handleRechazarOferta}
+                        disabled={loadingElimination}
                       >
-                        Rechazar
+                        {loadingElimination ? "Rechazando..." : "Rechazar"}
                       </button>
                       <button
                         className="bg-yellow-50 text-yellow-600 px-4 py-2 rounded-lg hover:bg-yellow-100 text-sm font-medium transition-colors"

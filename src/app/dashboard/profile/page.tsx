@@ -3,57 +3,24 @@ import { useAuth } from "@/contexts/AuthContext"
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from "@/firebase/clientApp"
 import { useState } from "react"
-import { ProfesionalProfile } from "@/types/ProfesionalProfile"
-import { User, Briefcase, CheckCircle2, CreditCard, Mail, Save, UserCircle, Phone, MapPin } from "lucide-react"
+import { User, CreditCard, Mail, Save, UserCircle, Phone, MapPin } from "lucide-react"
 import { toast } from "react-hot-toast"
-
-const SERVICIOS = [
-  { id: "limpieza-profunda", label: "Limpieza Profunda", icon: "🧹" },
-  { id: "mantenimiento", label: "Mantenimiento", icon: "🔧" },
-  { id: "lavanderia", label: "Lavandería", icon: "👕" },
-]
 
 export default function ProfilePage() {
   const { user } = useAuth()
-  const perfil = user?.profile as ProfesionalProfile
-
-  // Estado local para edición instantánea
+  const [isSaving, setIsSaving] = useState(false)
   const [formData, setFormData] = useState({
-    descripcionProfesional: perfil?.descripcionProfesional || "",
-    tiposServicio: perfil?.tiposServicio || [],
     displayName: user?.displayName || "",
     direccion: user?.profile?.direccion || "",
     telefono: user?.profile?.telefono || "",
   })
-  const [isSaving, setIsSaving] = useState(false)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
     }))
-  }
-
-  // Actualiza Firestore cuando cambian los toggles
-  const handleToggleServicio = async (id: string) => {
-    setIsSaving(true)
-    let actualizados: string[]
-    if (formData.tiposServicio.includes(id)) {
-      actualizados = formData.tiposServicio.filter((s) => s !== id)
-    } else {
-      actualizados = [...formData.tiposServicio, id]
-    }
-    setFormData(prev => ({ ...prev, tiposServicio: actualizados }))
-    if (user) {
-      try {
-        await updateDoc(doc(db, "users", user.uid), { tiposServicio: actualizados })
-      } catch (error) {
-        console.error("Error al actualizar servicios:", error)
-        toast.error("Error al actualizar servicios")
-      }
-    }
-    setIsSaving(false)
   }
 
   const validateForm = () => {
@@ -73,10 +40,6 @@ export default function ProfilePage() {
       toast.error("La dirección no puede estar vacía")
       return false
     }
-    if (!formData.descripcionProfesional.trim()) {
-      toast.error("La descripción profesional no puede estar vacía")
-      return false
-    }
     return true
   }
 
@@ -88,8 +51,7 @@ export default function ProfilePage() {
       await updateDoc(doc(db, "users", user!.uid), {
         displayName: formData.displayName,
         direccion: formData.direccion,
-        telefono: formData.telefono,
-        descripcionProfesional: formData.descripcionProfesional
+        telefono: formData.telefono
       })
       toast.success("Perfil actualizado correctamente")
     } catch (error) {
@@ -99,7 +61,7 @@ export default function ProfilePage() {
     setIsSaving(false)
   }
 
-  if (!perfil) return (
+  if (!user) return (
     <div className="flex items-center justify-center min-h-[60vh]">
       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
     </div>
@@ -115,8 +77,8 @@ export default function ProfilePage() {
               <User className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">{perfil.displayName}</h1>
-              <p className="text-indigo-100 mt-1">{perfil.email}</p>
+              <h1 className="text-2xl font-bold text-white">Mi Perfil</h1>
+              <p className="text-indigo-100 mt-1">Información personal</p>
             </div>
           </div>
         </div>
@@ -132,7 +94,7 @@ export default function ProfilePage() {
                 </div>
                 <h3 className="font-medium text-gray-900">Cédula</h3>
               </div>
-              <p className="text-gray-600 ml-11">{user?.profile?.cedula || "No especificada"}</p>
+              <p className="text-gray-600 ml-11">{user.profile?.cedula || "No especificada"}</p>
             </div>
 
             <div className="bg-gray-50/50 backdrop-blur-sm p-4 rounded-xl border border-gray-100 hover:border-indigo-100 transition-colors duration-200">
@@ -142,7 +104,7 @@ export default function ProfilePage() {
                 </div>
                 <h3 className="font-medium text-gray-900">Email</h3>
               </div>
-              <p className="text-gray-600 ml-11">{user?.email}</p>
+              <p className="text-gray-600 ml-11">{user.email}</p>
             </div>
           </div>
 
@@ -205,74 +167,6 @@ export default function ProfilePage() {
                   className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 bg-white/50 backdrop-blur-sm"
                   placeholder="Tu dirección completa"
                 />
-              </div>
-            </div>
-
-            {/* Descripción */}
-            <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <div className="bg-indigo-100 p-2 rounded-lg">
-                  <Briefcase className="h-5 w-5 text-indigo-600" />
-                </div>
-                <h2 className="text-lg font-semibold text-gray-900">Descripción profesional</h2>
-              </div>
-              <div className="relative">
-                <div className="absolute top-3 left-3 flex items-start z-10">
-                  <Briefcase className="h-5 w-5 text-gray-400" />
-                </div>
-                <textarea
-                  name="descripcionProfesional"
-                  value={formData.descripcionProfesional}
-                  onChange={handleInputChange}
-                  className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 min-h-[120px] resize-none bg-white/50 backdrop-blur-sm"
-                  placeholder="Contá a los clientes sobre vos y tu experiencia..."
-                />
-              </div>
-            </div>
-
-            {/* Servicios */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <div className="bg-indigo-100 p-2 rounded-lg">
-                    <CheckCircle2 className="h-5 w-5 text-indigo-600" />
-                  </div>
-                  <h2 className="text-lg font-semibold text-gray-900">Servicios que ofrezco</h2>
-                </div>
-                {isSaving && (
-                  <div className="flex items-center space-x-2 text-sm text-indigo-600">
-                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-indigo-600"></div>
-                    <span>Guardando...</span>
-                  </div>
-                )}
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {SERVICIOS.map((srv) => (
-                  <label
-                    key={srv.id}
-                    className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
-                      formData.tiposServicio.includes(srv.id)
-                        ? "border-indigo-600 bg-indigo-50/50 backdrop-blur-sm"
-                        : "border-gray-200 hover:border-indigo-300 bg-white/50 backdrop-blur-sm"
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={formData.tiposServicio.includes(srv.id)}
-                      onChange={() => handleToggleServicio(srv.id)}
-                      className="sr-only"
-                    />
-                    <div className="flex items-center space-x-3">
-                      <span className="text-2xl">{srv.icon}</span>
-                      <span className="font-medium text-gray-700">{srv.label}</span>
-                    </div>
-                    {formData.tiposServicio.includes(srv.id) && (
-                      <div className="absolute top-2 right-2">
-                        <CheckCircle2 className="h-5 w-5 text-indigo-600" />
-                      </div>
-                    )}
-                  </label>
-                ))}
               </div>
             </div>
           </div>

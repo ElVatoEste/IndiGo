@@ -129,28 +129,41 @@ export default function SolicitudPendienteCard({ solicitud, onActualizar }: Soli
 
       <div className="text-sm text-gray-600">
         <strong className="block font-medium mb-1">Descripción:</strong>
-        <p className="bg-gray-50 rounded-lg p-3">{solicitud.descripcion}</p>
+        <p
+          className="bg-gray-50 rounded-lg p-3 line-clamp-3 overflow-hidden cursor-pointer"
+          title={solicitud.descripcion}
+        >
+          {solicitud.descripcion}
+        </p>
       </div>
 
       <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mt-2">
         <div className="flex items-center gap-1">
           <MapPin className="w-4 h-4" />
-          {solicitud.ubicacion}
+          <span className="truncate max-w-[120px]" title={solicitud.ubicacion}>
+            {solicitud.ubicacion}
+          </span>
         </div>
         <div className="flex items-center gap-1">
           <Calendar className="w-4 h-4" />
-          {new Date(solicitud.fecha).toLocaleDateString()}
+          <span title={new Date(solicitud.fecha).toLocaleDateString()}>
+            {new Date(solicitud.fecha).toLocaleDateString()}
+          </span>
         </div>
         {profesional?.telefono && (
           <div className="flex items-center gap-1">
             <Phone className="w-4 h-4" />
-            {profesional.telefono}
+            <span className="truncate max-w-[120px]" title={profesional.telefono}>
+              {profesional.telefono}
+            </span>
           </div>
         )}
         {solicitud.metodoPago && (
           <div className="flex items-center gap-1">
             <CreditCard className="w-4 h-4" />
-            {solicitud.metodoPago}
+            <span className="truncate max-w-[120px]" title={solicitud.metodoPago}>
+              {solicitud.metodoPago === "efectivo" ? "Efectivo" : "Pago en línea"}
+            </span>
           </div>
         )}
         {profesional && renderStars(profesional.calificacionPromedio)}
