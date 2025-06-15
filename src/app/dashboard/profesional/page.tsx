@@ -17,24 +17,7 @@ export default function ProfesionalDashboardPage() {
                 <div className="px-4 py-6 sm:px-0">
                     <div className="bg-white rounded-lg shadow p-6">
                         <h1 className="text-2xl font-bold text-indigo-600 mb-4">Dashboard de Profesional</h1>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                            <Link href="/dashboard/profesional/ofertas" className="block">
-                                <div className="bg-green-50 p-6 rounded-lg hover:bg-green-100 cursor-pointer transition">
-                                    <h3 className="font-semibold text-green-700 mb-2">Ofertas Disponibles</h3>
-                                    <p className="text-gray-600">Revisa las nuevas solicitudes de servicio</p>
-                                </div>
-                            </Link>
-                            <Link href="/dashboard/profesional/profile" className="block">
-                                <div className="bg-blue-50 p-6 rounded-lg hover:bg-blue-100 cursor-pointer transition">
-                                    <h3 className="font-semibold text-blue-700 mb-2">Mi Perfil</h3>
-                                    <p className="text-gray-600">Actualiza tu información profesional</p>
-                                </div>
-                            </Link>
-                            <div className="bg-purple-50 p-6 rounded-lg">
-                                <h3 className="font-semibold text-purple-700 mb-2">Ganancias</h3>
-                                <p className="text-gray-600">Revisa tus ingresos en córdobas</p>
-                            </div>
-                        </div>
+                        
 
                         {/* Solicitudes pendientes */}
                         <div className="mt-8">
