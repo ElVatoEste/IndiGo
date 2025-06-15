@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import {Menu, X, User, Settings, LogOut, Home, Briefcase, DollarSign, BookOpen, Tag} from "lucide-react"
+import {Menu, X, User, LogOut, Home, Briefcase, DollarSign, BookOpen, Tag} from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import { useRouter, usePathname } from "next/navigation"
 

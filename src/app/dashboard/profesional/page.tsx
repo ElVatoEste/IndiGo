@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { useAuth } from "@/contexts/AuthContext"
 import { usePendientesProfesional } from "@/hooks/usePendientesProfesional"
 import { useState } from "react"
