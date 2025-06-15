@@ -80,13 +80,7 @@ export default function DashboardNavbar() {
                                     <User className="h-4 w-4 mr-2" />
                                     Mi Perfil
                                 </a>
-                                <a
-                                    href="/dashboard/settings"
-                                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
-                                >
-                                    <Settings className="h-4 w-4 mr-2" />
-                                    Configuración
-                                </a>
+                        
                                 <button
                                     onClick={handleLogout}
                                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center"
@@ -145,14 +139,7 @@ export default function DashboardNavbar() {
                                     <User className="h-5 w-5 mr-3" />
                                     Mi Perfil
                                 </a>
-                                <a
-                                    href="/dashboard/settings"
-                                    className=" px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 flex items-center"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    <Settings className="h-5 w-5 mr-3" />
-                                    Configuración
-                                </a>
+                             
                                 <button
                                     onClick={handleLogout}
                                     className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50 flex items-center"
