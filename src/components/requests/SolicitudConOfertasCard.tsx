@@ -35,10 +35,12 @@ export default function SolicitudConOfertasCard({
   const { eliminar, loadingElimination } = useEliminarOferta()
   
   const nextOferta = () => {
+    if (ofertas.length === 0) return
     setCurrentIndex((prev) => (prev + 1) % ofertas.length)
   }
 
   const prevOferta = () => {
+    if (ofertas.length === 0) return
     setCurrentIndex((prev) => (prev - 1 + ofertas.length) % ofertas.length)
   }
 
@@ -127,7 +129,7 @@ export default function SolicitudConOfertasCard({
                 className="truncate max-w-[150px] cursor-pointer"
                 title={`Fecha solicitada: ${new Date(fecha).toLocaleDateString()}`}
               >
-                Fecha solicitada: {new Date(fecha).toLocaleDateString()}
+                {new Date(fecha).toLocaleDateString()}
               </span>
             </div>
           </div>
@@ -146,7 +148,7 @@ export default function SolicitudConOfertasCard({
               <div className="text-gray-400 text-4xl mb-2">📭</div>
               <p className="text-gray-500">No hay ofertas para esta solicitud aún.</p>
             </div>
-          ) : (
+          ) : ofertas[currentIndex] ? (
             <div className="relative">
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="border rounded-lg p-5 bg-gray-50 shadow-sm hover:shadow-md transition-shadow">
@@ -268,6 +270,11 @@ export default function SolicitudConOfertasCard({
                   </div>
                 </>
               )}
+            </div>
+          ) : (
+            <div className="text-center py-8 bg-white rounded-lg">
+              <div className="text-gray-400 text-4xl mb-2">⚠️</div>
+              <p className="text-gray-500">No se encontró la oferta seleccionada.</p>
             </div>
           )}
         </div>
